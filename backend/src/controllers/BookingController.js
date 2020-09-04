@@ -12,6 +12,8 @@ module.exports = {
             date
         });
 
+        await booking.populate('spot').populate('user').execPopulate();
+
         return response.status(200).json(booking);
     }
 };

@@ -24,7 +24,7 @@ module.exports = {
             email
          })
    
-         return response.status(201).json({ message: 'Cadastro realizado com Sucesso!' })
+         return response.status(201).json(users)
       }catch(error){
          return response.status(400).json({ message: 'Cadastro não pode ser realizado, tente novamente' })
       }

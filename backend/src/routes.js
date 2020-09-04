@@ -36,7 +36,7 @@ routes.get('/dashboard', DashboardController.show);// Lista spots pela user: id 
 //----------------------Rotas do Dashboard----------------------------------------------
 
 //----------------------Rotas do Booking------------------------------------------------
-routes.post('/spots/:spot_id/bookings', BookingController.store)
+routes.post('/spots/:spot_id/bookings', BookingController.store) // id do spot sem ser o user id mas o ObjectId
 //----------------------Rotas do Booking------------------------------------------------
 
 module.exports = routes;
