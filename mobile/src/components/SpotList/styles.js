@@ -32,19 +32,32 @@ const styles = StyleSheet.create({
     },
 
     company: {
-
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: '#333',
+        marginTop: 10,
     },
 
-    price: {
-
+    price: {    
+        fontSize: 15,
+        color: '#999',
+        marginTop: 5,
     },
 
     button:{
-
+        height: 32,
+        backgroundColor: '#f05a5b',
+        borderRadius: 2,
+        justifyContent: 'center',
+        alignItems: 'center',
+        elevation: 8,
+        marginTop: 15,
     },
 
     buttonText: {
-
+        fontWeight: 'bold',
+        fontSize: 15,
+        color: '#FFF',
     }
 
 })

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, AsyncStorage, Text, Image } from 'react-native';
+import { SafeAreaView, ScrollView, AsyncStorage, Text, Image } from 'react-native';
 
 import styles from './styles';
 import logo from '../../assets/logo.png'
@@ -20,7 +20,9 @@ const List = () => {
     return(
         <SafeAreaView style={styles.container} >
             <Image style={styles.logo} source={logo} />
-            {techs.map( tech => <SpotList key={tech} tech={tech} />)}
+                <ScrollView>
+                    {techs.map( tech => <SpotList key={tech} tech={tech} />)}
+                </ScrollView>
         </SafeAreaView>
     )
 }

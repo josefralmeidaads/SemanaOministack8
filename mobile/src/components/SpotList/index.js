@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, Image } from 'react-native';
+import { withNavigation } from 'react-navigation';
 import { RectButton } from 'react-native-gesture-handler';
 
 import api from '../../services/api'
 import styles from './styles';
 
 const SpotList = (props) => {
-    const {tech} = props;
+    const { tech, navigation } = props;
     const [spots, setSpots] = useState([]);
 
     useEffect(() => {
@@ -15,12 +16,15 @@ const SpotList = (props) => {
                 params: { tech }
             })
             setSpots(response.data);
-            console.log(response.data);
         }
         
         handleLoadSpots();
 
     }, [])
+
+    const handleNavigate = (id) => {
+        navigation.navigate('Book', { id });
+    }
 
     return(
         <View style={styles.container}>
@@ -46,8 +50,13 @@ const SpotList = (props) => {
                         <Text style={styles.price} >
                             {item.price ? `R$ ${item.price}/DIA` : 'GRATUITO'}
                         </Text>
-                        <RectButton onPress={() => {}}>
-                            <Text>Solicitar reserva</Text>
+                        <RectButton 
+                            style={styles.button} 
+                            onPress={ () => { handleNavigate(item._id) } }
+                        >
+                            <Text style={styles.buttonText} >
+                                Solicitar reserva
+                            </Text>
                         </RectButton>
                     </View>
                 )}            
@@ -57,4 +66,4 @@ const SpotList = (props) => {
     )
 }
 
-export default SpotList;
+export default withNavigation(SpotList);
