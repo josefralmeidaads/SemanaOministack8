@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
+import socketio from 'socket.io-client';
 import api from '../../services/api';
 
 import './styles.css';
@@ -8,7 +9,20 @@ import './styles.css';
 
 const Dashboard = () => {
     const [spots, setSpots] = useState([]);
-    const user_id = localStorage.getItem('user')
+    const [requests, setRequests] = useState([]);
+    console.log(requests);
+
+    const user_id = localStorage.getItem('user');
+    const socket = useMemo(() => socketio('http://localhost:3333', {
+        query: { user_id }
+    }), []); 
+    
+    useEffect(() => {
+        socket.on('booking_request', data => {
+            setRequests([...requests,data]);
+        })    
+    }, []);
+    
     
     useEffect(() => {
 
@@ -26,28 +40,36 @@ const Dashboard = () => {
     }, [])
 
     return(
-        <>
-            <ul className="spot-list">
-                {spots.map(spot => (
-                    <li key={spot._id}>
-                        <header 
-                            style={{ backgroundImage: `url(${spot.thumbnail_url})` }} 
-                        />
-                        <strong> 
-                            {spot.company} 
-                        </strong>
-                        
-                        <span>
-                            {spot.price ? `R$ ${spot.price}/dia` : "Gratuito"}
-                        </span>
+        <> 
+            <ul className="notifications">
+                {requests.map( item => (
+                    <li key={item._id}>
+                        Company{item.spot.company}
                     </li>
                 ))}
             </ul>
 
-            <Link to="/new">
-               <button className="btn">Cadastrar novo spot</button> 
-            </Link>
-        </>
+                <ul className="spot-list">
+                    {spots.map(spot => (
+                        <li key={spot._id}>
+                            <header 
+                                style={{ backgroundImage: `url(${spot.thumbnail_url})` }} 
+                            />
+                            <strong> 
+                                {spot.company} 
+                            </strong>
+                            
+                            <span>
+                                {spot.price ? `R$ ${spot.price}/dia` : "Gratuito"}
+                            </span>
+                        </li>
+                    ))}
+                </ul>
+
+                <Link to="/new">
+                <button className="btn">Cadastrar novo spot</button> 
+                </Link>
+            </>
     )
 }
 

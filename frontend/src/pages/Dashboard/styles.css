@@ -29,3 +29,7 @@ ul.spot-list li span {
     font-size: 15px;
     color: #999;
 }
+
+ul.notifications {
+    font-size: 30px;
+}
