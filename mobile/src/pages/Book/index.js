@@ -17,8 +17,6 @@ const Book = (props) => {
             date
         }, { headers: { user_id } })
 
-        console.log(response.data)
-
         Alert.alert('Solicitação de reserva enviada');
 
         navigation.navigate('List');
